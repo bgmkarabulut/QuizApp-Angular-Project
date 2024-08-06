@@ -1,0 +1,43 @@
+<div id="display-container" *ngIf="!quizCompleted">
+
+    <div class="header">
+  
+      <div class="number-of-count">
+  
+        <h3>{{currentQuestionIndex+1}} of {{questions.length}}</h3>
+  
+      </div>
+  
+    </div>
+  
+    <div class="container">
+  
+      <h2>{{questions[activeQuestionId].text}}  </h2>
+  
+      <div *ngFor="let option of questions[activeQuestionId].options;let i=index" >
+  
+        <button class="btn" (click)="selectOption(activeQuestionId,i)"[ngClass]="{
+  
+          'option-button':true,
+  
+          'selected':option.selected,
+  
+          'correct':option.selected && option.isCorrect,
+  
+          'incorrect':option.selected && !option.isCorrect
+  
+        }" [disabled]="questions[activeQuestionId].answered"  > {{option.text}} </button>
+  
+      </div>
+  
+      <button id="next-button" *ngIf="activeQuestionId<questions.length-1" (click)="nextQuestion()" >Next</button>
+  
+        <button id="next-button"*ngIf="activeQuestionId===questions.length-1" (click)="finishQuiz()">Finish Quiz</button>
+  
+    </div>
+  
+   
+  
+  </div>
+  
+   <app-result *ngIf="quizCompleted" ></app-result>
